@@ -22,7 +22,8 @@
 
         <div id="main">
 
-            
+           
+
 
         </div>
 
@@ -38,14 +39,40 @@
         </div>
 
         <div style="margin-bottom: 10px;">
-            <a href="#">Login</a>
-            <a href="#">Register</a>
+            <a href="#" id="login-btn">Login</a>
+            <a href="#" id="register-btn">Register</a>
         </div>
     </div>
 
     <div class="hero">
         <h1 class="typing-text">Benvenuto su GTA V - WebSite Edition</h1>
         <p>Collabora con i tuoi amici di FiveM</p>
+    </div>
+
+
+    <!-- Login Part -->
+    <div class="login-container" id="login-container">
+        <div class="login-form">
+            <span class="close-btn" onclick="closeLogin()">X</span>
+            <h2>Login</h2>
+            <input type="text" placeholder="Username" name="username" id="username" required>
+            <input type="password" placeholder="Password" name="password" id="password" required>
+            <button>Accedi</button>
+            <p>Non hai un account? <a href="#" onclick="openRegister()">Creane uno ora!</a></p>
+        </div>
+    </div>
+
+    <!-- Container per Register -->
+    <div class="register-container" id="register-container">
+        <div class="register-form">
+            <span class="close-btn" onclick="closeRegister()">X</span>
+            <h2>Registrazione</h2>
+            <input type="text" placeholder="Nome" id="register-name">
+            <input type="email" placeholder="Email" id="register-email">
+            <input type="password" placeholder="Password" id="register-password">
+            <button>Registrati</button>
+            <p>Hai già un account? <a href="#" onclick="openLogin()">Accedi</a></p>
+        </div>
     </div>
 
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
