@@ -1,0 +1,114 @@
+@keyframes gradientAnimation {
+    0% { background-position: 0% 50%; }
+    100% { background-position: 100% 50%; }
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    user-select: none;
+    font-family: 'GTAVfont', sans-serif;
+    letter-spacing: px;
+    font-size: 30px;
+
+}
+
+body {
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: Arial, sans-serif;
+    color: white;
+    overflow: hidden;
+}
+
+.background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('../img/lossantos.jpg') no-repeat center center/cover;
+}
+
+.overlay{
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    text-align: center;
+}
+
+.hero {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    text-align: center;
+    color: goldenrod;
+}
+
+.hero h1 {
+    font-size: 50px;
+    margin: 0;
+}
+
+/* Menu NavBar style off-canvas*/
+.menu-btn {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    font-size: 30px;
+    cursor: pointer;
+    z-index: 3;
+}
+
+.sidebar {
+    position: fixed;
+
+    display: flex;
+    flex-direction: column;
+
+    justify-content: space-between;
+
+    border-right: 10px solid rgba(255, 255, 255, 0.2);
+
+    top: 0;
+    left: -250px;
+    width: 250px;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(10px);
+    padding-top: 60px;
+    transition: left 0.3s ease;
+
+    z-index: 3;
+}
+
+.sidebar a {
+    display: block;
+    padding: 15px;
+    color: white;
+    text-decoration: none;
+    text-align: center;
+
+    transition: background 0.3s;
+}
+
+.sidebar a:hover {
+    background: rgba(255, 255, 255, 0.2);
+    border-bottom: 1px solid whitesmoke;
+}
+
+.sidebar.active {
+    left: 0;
+}

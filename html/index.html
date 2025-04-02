@@ -3,12 +3,54 @@
 <head>
     <meta charset='utf-8'>
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-    <title>Page Title</title>
+    <title>GTAV - WEB IN PROGRESS</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel="stylesheet" href="../css/index.css">
 
-    
+    <style>
+        @font-face {
+            font-family: 'GTAVfont'; /* Scegli un nome per il font */
+            src: url('../fonts/Pricedown\ Bl.otf') format('opentype');
+            font-weight: normal;
+            font-style: normal;
+        }
+    </style>
+
 </head>
-<body>
+<body onclick="closeMenu(event)">
+    <div class="background">
+
+        <div id="main">
+
+            
+
+        </div>
+
+    </div>
+    <div class="overlay"></div>
     
+    <div class="menu-btn" onclick="toggleMenu(event)">☰</div>
+    <div class="sidebar" id="sidebar">
+        <div style="margin-top: 40px;">
+            <a href="#">Home</a>
+            <a href="#">News</a>
+            <a href="#">Community</a>
+        </div>
+
+        <div style="margin-bottom: 10px;">
+            <a href="#">Login</a>
+            <a href="#">Register</a>
+        </div>
+    </div>
+
+    <div class="hero">
+        <h1 class="typing-text">Benvenuto su GTA V - WebSite Edition</h1>
+        <p>Collabora con i tuoi amici di FiveM</p>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="../js/scriptIndex.js"></script>
 </body>
+
+
 </html>
