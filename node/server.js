@@ -30,11 +30,6 @@ db.connect(err => {
 // Imposta la porta su cui il server ascolterà
 const port = 3000;
 
-// Imposta una route di base
-app.get('/ciao', (req, res) => {
-    res.send('Ciao, benvenuto nel tuo server Node.js!');
-});
-
 // Route POST per creare un nuovo utente
 app.post('/registrazione', (req, res) => {
     const { nome, email, password } = req.body;
@@ -53,6 +48,70 @@ app.post('/registrazione', (req, res) => {
         res.status(201).json({ messaggio: 'Utente creato con successo', id: result.insertId });
     });
 });
+
+// Route POST per il login
+app.post('/login', (req, res) => {
+    const { name, password } = req.body; // Ottieni nome e password dal corpo della richiesta
+
+    if (!name || !password) {
+        return res.status(400).json({ errore: 'Nome e password sono obbligatori' });
+    }
+
+    const sql = 'SELECT id,nome, role,is_admin FROM gta_loginUsers WHERE nome = ? AND password = ?';
+    db.query(sql, [name, password], (err, result) => {
+        if (err) {
+            console.error("Errore durante il recupero dei dati dell'utente:", err);
+            return res.status(500).json({ errore: 'Errore del server' });
+        }
+
+        if (result.length === 0) {
+            return res.status(404).json({ errore: 'Utente non trovato o password errata' });
+        }
+
+        res.status(200).json({
+            id: result[0].id,
+            nome: result[0].nome,
+            role: result[0].role,
+            admin: result[0].is_admin,
+            messaggio: 'Login effettuato con successo'
+        });
+
+        console.log(`Login effettuato con successo per l'utente: ${result[0].nome}`);
+    });
+});
+
+
+// Route POST per ricevere i dati delle impostazioni
+app.post('/save-settings', (req, res) => {
+    // Destruttura i dati inviati dal client
+    const {id, name, gender, nationality, birthdate, height } = req.body;
+
+    // Verifica che tutti i dati necessari siano presenti
+    if (!gender || !nationality || !birthdate || !height) {
+        return res.status(400).json({ errore: 'Tutti i campi sono obbligatori!' });
+    }
+
+    const sqlUpdate = 'UPDATE gta_loginUsers SET gender = ?, nationality = ?, birthdate = ?, height = ? WHERE id = ? AND nome = ?';
+
+    db.query(sqlUpdate, [gender, nationality, birthdate, height, id, name], (err, result) => {
+        if (err) {
+            console.error("Errore durante l'aggiornamento dell'utente:", err);
+            return res.status(500).json({ errore: 'Errore del server durante l\'aggiornamento' });
+        }
+
+        if (result.affectedRows === 0) {
+            return res.status(404).json({ errore: 'Utente non trovato' });
+        }
+
+        res.status(200).json({
+            messaggio: 'Settaggi Utente aggiornati con successo'
+        });
+
+        console.log(`Settaggi utente con ID ${id} NAME ${name} aggiornato con successo.`);
+    });
+});
+
+
 
 // Fai partire il server
 app.listen(port, () => {

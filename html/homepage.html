@@ -1,11 +1,19 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GTAV - Homepage</title>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>GTAV - WEB IN PROGRESS</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel="stylesheet" href="../css/homepage.css">
+    <link rel="stylesheet" href="../css/mainHomepage.css">
 
-    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"> <!-- Ingranaggio -->
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"> <!-- Ingranaggio -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"> <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap"> <!-- Font GTAV Style -->
+
     <style>
         @font-face {
             font-family: 'GTAVfont'; /* Scegli un nome per il font */
@@ -16,7 +24,83 @@
     </style>
 
 </head>
-<body>
+<body onclick="closeMenu(event)">
+    <div class="background">
+
+        <div id="mainPage">
+            
+            <!-- Possiamo creare diversi menu e settarli da script-->
+            <div id="mainSettings">
+                <div class="close-btn" onclick="closeSettings()">X</div>
+                <h2>Impostazioni</h2>
+        
+                <!-- Form per le impostazioni -->
+                <div class="settings-form">
+                    <label for="gender">Genere</label>
+                    <select id="gender">
+                        <option value="male">Maschio</option>
+                        <option value="female">Femmina</option>
+                    </select>
+        
+                    <label for="nationality">Nazionalità</label>
+                    <select id="nationality">
+                        <option value="it">Italia</option>
+                        <option value="us">Stati Uniti</option>
+                        <option value="uk">Regno Unito</option>
+                        <option value="de">Germania</option>
+                        <option value="fr">Francia</option>
+                    </select>
+        
+                    <label for="birthdate">Data di nascita</label>
+                    <input type="date" id="birthdate">
+        
+                    <label for="height">Altezza (in cm)</label>
+                    <input type="number" id="height" min="0">
+        
+                    <button onclick="saveSettings()" style="cursor: pointer;">Salva Impostazioni</button>
+                </div>
+        
+            </div>
+
+        </div>
+
+   </div>
+ 
+    <div class="overlay"></div>
     
+    <div class="menu-btn" onclick="toggleMenu(event)">☰</div>
+    <div class="sidebar" id="sidebar">
+        
+        <div>
+            <a id="is_adminID" style="display: none;color: red;">Admin</a>
+            <a href="#">Home</a>
+            <a href="#">News</a>
+            <a href="#">Community</a>
+        </div>
+
+        <div id="settings">
+            <a href="#" id="openSettings" onclick="openSettings()">
+                <i class="fas fa-cog"></i>
+                <span>&nbsp;Settings</span>
+            </a>
+            <a href="index.html" style="color: red;">
+                &#128682; EXIT 
+            </a>
+        </div>
+        
+    </div>
+
+    <div class="hero">
+        <h1 class="typing-text">
+            <h1 id="spanUsername"></h1> 
+            &nbsp;
+            <h1 id="roleID" style="color: purple;"></h1>
+        </h1>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="../js/homepage/scriptHomepage.js"></script>
 </body>
+
+
 </html>

@@ -52,6 +52,7 @@
             <h2>Login</h2>
             <input type="text" placeholder="Username" name="username" id="username" required>
             <input type="password" placeholder="Password" name="password" id="password" required>
+            <p id="login-error" style="color: red; display: none;"></p> <!-- Messaggio di errore -->
             <button>Accedi</button>
             <p>Non hai un account? <a href="#" onclick="openRegister()">Creane uno ora!</a></p>
         </div>
@@ -62,7 +63,7 @@
         <div class="register-form">
             <span class="close-btn" onclick="closeRegister()">X</span>
             <h2>Registrazione</h2>
-            <input type="text" placeholder="Nome" id="register-name" autocomplete="off">
+            <input type="text" placeholder="Username" id="register-name" autocomplete="off">
             <input type="email" placeholder="Email" id="register-email" autocomplete="off">
             <input type="password" placeholder="Password" id="register-password" autocomplete="off">
             <input type="password" placeholder="Re-Password" id="register-repassword" autocomplete="off">
@@ -75,6 +76,7 @@
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script src="../js/index/scriptIndex.js"></script>
     <script src="../js/index/registrazioneIndex.js"></script>
+    <script src="../js/index/loginIndex.js"></script>
 </body>
 
 

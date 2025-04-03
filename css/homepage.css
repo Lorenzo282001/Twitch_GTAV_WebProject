@@ -15,6 +15,8 @@
 }
 
 body {
+    position: relative;
+    padding-right: 10px;
     margin: 0;
     height: 100vh;
     display: flex;
@@ -46,13 +48,12 @@ body {
 }
 
 .hero {
-    position: relative;
+    position: absolute;
     z-index: 1;
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
+    top: 0;
+    right: 0;
+    margin-right: 15px;
     text-align: center;
     color: goldenrod;
 }
@@ -62,8 +63,9 @@ body {
 }
 
 .hero h1 {
-    font-size: 50px;
+    font-size: 30px;
     margin: 0;
+    letter-spacing: 1.5px;
 }
 
 /* LOGIN PHASE */
@@ -110,12 +112,6 @@ body {
     background: #ff9900;
 }
 
-input:focus {
-    outline: none;
-    box-shadow: none;
-    border-color: inherit;
-}
-
 /* Pulsante per chiudere il container */
 .close-btn {
     position: absolute;
@@ -150,7 +146,7 @@ input:focus {
     left: -250px;
     width: 250px;
     height: 100%;
-    background: rgba(0, 0, 0, 0.8);
+    background: rgba(0, 0, 0, 0.1);
     backdrop-filter: blur(10px);
     padding-top: 60px;
     transition: left 0.3s ease;
@@ -176,3 +172,24 @@ input:focus {
 .sidebar.active {
     left: 0;
 }
+
+#settings {
+    margin-bottom: 20px;
+}
+
+#settings a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    padding: 5px 10px;
+    color: white; /* Forza il colore bianco */
+    text-align: center;
+}
+
+#settings a:hover {
+    background-color: rgba(255, 255, 255, 0.2) !important;
+    border-bottom: 1px solid whitesmoke;
+}
+
+

@@ -1,5 +1,5 @@
 document.querySelector(".register-form button").addEventListener("click", () => {
-    const nome = document.getElementById("register-name").value;
+    const nome = document.getElementById("register-name").value.toLowerCase(); // Username
     const email = document.getElementById("register-email").value;
     const password = document.getElementById("register-password").value;
     const repassword = document.getElementById("register-repassword").value;

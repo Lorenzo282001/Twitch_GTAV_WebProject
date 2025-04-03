@@ -23,3 +23,17 @@ ROLES { ADMIN -> CHECK FOR EVERY USER TO SETUP A NEW ROLES IN PARTICULAR
 LOGIN SQL -> nome, email, password, role, admin
 
 In homepage, devo controllare manualmente se un utente e` whitelistato nel server, quindi di default mettiamo role = CITIZEN
+
+Homepage settings of a single user {
+
+    name, email, role, admin
+    
+        Caratteristiche personaggio {
+            male/female,
+            data di nascita
+            nazionalita
+            altezza
+            
+        }
+
+}
