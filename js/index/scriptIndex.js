@@ -1,4 +1,4 @@
-
+// COMANDI PER LA CREAZIONE DELLA BARRA DI NAVIGAZIONE
 
 function toggleMenu(event) {
     event.stopPropagation(); // Prevent the click event from bubbling up to the document

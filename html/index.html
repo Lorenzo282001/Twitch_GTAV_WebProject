@@ -20,14 +20,9 @@
 <body onclick="closeMenu(event)">
     <div class="background">
 
-        <div id="main">
 
-           
-
-
-        </div>
-
-    </div>
+   </div>
+ 
     <div class="overlay"></div>
     
     <div class="menu-btn" onclick="toggleMenu(event)">☰</div>
@@ -67,16 +62,19 @@
         <div class="register-form">
             <span class="close-btn" onclick="closeRegister()">X</span>
             <h2>Registrazione</h2>
-            <input type="text" placeholder="Nome" id="register-name">
-            <input type="email" placeholder="Email" id="register-email">
-            <input type="password" placeholder="Password" id="register-password">
+            <input type="text" placeholder="Nome" id="register-name" autocomplete="off">
+            <input type="email" placeholder="Email" id="register-email" autocomplete="off">
+            <input type="password" placeholder="Password" id="register-password" autocomplete="off">
+            <input type="password" placeholder="Re-Password" id="register-repassword" autocomplete="off">
+            <p id="register-error" style="color: red; display: none;"></p> <!-- Messaggio di errore -->
             <button>Registrati</button>
             <p>Hai già un account? <a href="#" onclick="openLogin()">Accedi</a></p>
         </div>
     </div>
 
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-    <script src="../js/scriptIndex.js"></script>
+    <script src="../js/index/scriptIndex.js"></script>
+    <script src="../js/index/registrazioneIndex.js"></script>
 </body>
 
 
