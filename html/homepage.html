@@ -7,6 +7,7 @@
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <link rel="stylesheet" href="../css/homepage.css">
     <link rel="stylesheet" href="../css/mainHomepage.css">
+    <link rel="stylesheet" href="../css/dashboardCittadino.css">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"> <!-- Ingranaggio -->
 
@@ -62,6 +63,160 @@
         
             </div>
 
+
+            <div class="dashboard">
+                <h1 style="display: flex; justify-content: center; align-items: center;">Pannello Cittadino</h1>
+        
+                <div class="grid">
+                    <!-- Card Documenti -->
+                    <div class="card toggle-menuDashboard" id="DocumentiCard">
+                        <i class="fas fa-id-card"></i>
+                        <h2>Documenti</h2>
+                        <p>Carta d'identità, permessi e altro.</p>
+                        <div class="menu" style="display:none;">
+                            <ul>
+                                <li><a href="#" class="view-option" data-target="documenti-specifica">Visualizza Documenti</a></li>
+                                <li><a href="#" class="view-option" data-target="aggiungi-documento">Aggiungi Documento</a></li>
+                                <li><a href="#" class="view-option" data-target="elimina-documento">Elimina Documento</a></li>
+                            </ul>
+                        </div>
+                    </div>
+        
+                    <!-- Card Conto Bancario -->
+                    <div class="card toggle-menuDashboard" id="ContoBancarioCard">
+                        <i class="fas fa-wallet"></i>
+                        <h2>Conto Bancario</h2>
+                        <p>Saldo attuale e movimenti recenti.</p>
+                        <div class="menu" style="display:none;">
+                            <ul>
+                                <li><a href="#" class="view-option" data-target="saldo">Visualizza Saldo</a></li>
+                                <li><a href="#" class="view-option" data-target="aggiungi-transazione">Aggiungi Transazione</a></li>
+                                <li><a href="#" class="view-option" data-target="scarica-estratto">Scarica Estratto Conto</a></li>
+                            </ul>
+                        </div>
+                    </div>
+        
+                    <!-- Card Proprietà -->
+                    <div class="card toggle-menuDashboard" id="ProprietaCard">
+                        <i class="fas fa-home"></i>
+                        <h2>Proprietà</h2>
+                        <p>Case e appartamenti registrati.</p>
+                        <div class="menu" style="display:none;">
+                            <ul>
+                                <li><a href="#" class="view-option" data-target="visualizza-proprieta">Visualizza Proprietà</a></li>
+                                <li><a href="#" class="view-option" data-target="aggiungi-proprieta">Aggiungi Proprietà</a></li>
+                                <li><a href="#" class="view-option" data-target="rimuovi-proprieta">Rimuovi Proprietà</a></li>
+                            </ul>
+                        </div>
+                    </div>
+        
+                    <!-- Card Lavoro -->
+                    <div class="card toggle-menuDashboard" id="LavoroCard">
+                        <i class="fas fa-briefcase"></i>
+                        <h2>Lavoro</h2>
+                        <p>Impiegato presso XYZ.</p>
+                        <div class="menu" style="display:none;">
+                            <ul>
+                                <li><a href="#" class="view-option" data-target="visualizza-lavoro">Visualizza Dettagli Lavoro</a></li>
+                                <li><a href="#" class="view-option" data-target="aggiorna-posizione">Aggiorna Posizione</a></li>
+                            </ul>
+                        </div>
+                    </div>
+        
+                    <!-- Card Comunicazioni -->
+                    <div class="card toggle-menuDashboard" id="ComunicazioniCard">
+                        <i class="fas fa-envelope"></i>
+                        <h2>Comunicazioni</h2>
+                        <p>Messaggi ufficiali e notifiche.</p>
+                        <div class="menu" style="display:none;">
+                            <ul>
+                                <li><a href="#" class="view-option" data-target="leggi-comunicazioni">Leggi Comunicazioni</a></li>
+                                <li><a href="#" class="view-option" data-target="invia-risposta">Invia Risposta</a></li>
+                            </ul>
+                        </div>
+                    </div>
+        
+                    <!-- Card Veicoli -->
+                    <div class="card toggle-menuDashboard" id="VeicoliCard">
+                        <i class="fas fa-car"></i>
+                        <h2>Veicoli</h2>
+                        <p>Lista delle auto registrate.</p>
+                        <div class="menu" style="display:none;">
+                            <ul>
+                                <li><a href="#" class="view-option" data-target="visualizza-veicoli">Visualizza Veicoli</a></li>
+                                <li><a href="#" class="view-option" data-target="aggiungi-veicolo">Aggiungi Veicolo</a></li>
+                                <li><a href="#" class="view-option" data-target="elimina-veicolo">Elimina Veicolo</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        
+            <!-- Card per le specifiche di Documenti -->
+            <div class="specifica-card" id="documenti-specifica" style="display:none;">
+                <div class="back-button" onclick="goBack()">
+                    <i class="fas fa-arrow-left"></i>
+                </div>
+                <h2>Dettagli Documenti</h2>
+                <p>Qui visualizzerai tutti i dettagli relativi ai tuoi documenti.</p>
+            </div>
+
+            <!-- Card per le specifiche di Aggiungi Documento -->
+            <div class="specifica-card" id="aggiungi-documento" style="display:none;">
+                <div class="back-button" onclick="goBack()">
+                    <i class="fas fa-arrow-left"></i> Torna al Pannello
+                </div>
+                <h2>Aggiungi Documento</h2>
+                <p>Carica un nuovo documento.</p>
+                
+                <div class="document-type">
+                    <label for="document-select">Seleziona il tipo di documento:</label>
+                    <select id="document-select" class="select-menu">
+                        <option value="carta-identita">Carta d'Identità</option>
+                        <option value="patente-a">Patente A</option>
+                        <option value="patente-b">Patente B</option>
+                        <option value="patente-c">Patente C</option>
+                    </select>
+                </div>
+
+                <div class="dashboard-upload" style="display: flex; justify-content: center; align-items: center;margin-top: 30px;">
+                    <button style="cursor: pointer;">ADD</button>
+                </div>
+            </div>
+            
+            <!-- Card per le specifiche di Elimina Documento -->
+            <div class="specifica-card" id="elimina-documento" style="display:none;">
+                <div class="back-button" onclick="goBack()">
+                    <i class="fas fa-arrow-left"></i> Torna al Pannello
+                </div>
+                <h2>Rimuovi Documento</h2>
+                <p>Rimuovi un documento errato e/o scaduto.</p>
+                
+                <div class="document-type">
+                    <label for="document-select">Seleziona il tipo di documento:</label>
+                    <select id="document-select" class="select-menu">
+                        <option value="carta-identita">Carta d'Identità</option>
+                        <option value="patente-a">Patente A</option>
+                        <option value="patente-b">Patente B</option>
+                        <option value="patente-c">Patente C</option>
+                    </select>
+                </div>
+
+                <div class="dashboard-upload" style="display: flex; justify-content: center; align-items: center;margin-top: 30px;">
+                    <button style="cursor: pointer;">REMOVE</button>
+                </div>
+            </div>
+
+            <!-- Card per le specifiche di Conto Bancario -->
+            <div class="specifica-card" id="saldo" style="display:none;">
+                <div class="back-button" onclick="goBack()">
+                    <i class="fas fa-arrow-left"></i>
+                </div>
+                <h2>Saldo Conto Bancario</h2>
+                <p>Dettagli sul saldo attuale del tuo conto bancario.</p>
+            </div>
+            
+
         </div>
 
    </div>
@@ -90,9 +245,9 @@
         
     </div>
 
-    <div class="hero">
+    <div class="hero" style="cursor: pointer;">
         <h1 class="typing-text">
-            <h1 id="spanUsername"></h1> 
+            <h1 id="spanUsername" onclick="toggleDashboard()"></h1> 
             &nbsp;
             <h1 id="roleID" style="color: purple;"></h1>
         </h1>
@@ -100,6 +255,7 @@
 
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script src="../js/homepage/scriptHomepage.js"></script>
+    <script src="../js/homepage/pannelloCittadino.js"></script>
 </body>
 
 

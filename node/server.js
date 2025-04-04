@@ -111,7 +111,29 @@ app.post('/save-settings', (req, res) => {
     });
 });
 
+// Route GET per ottenere i dati delle impostazioni utente
+app.get('/get-settings', (req, res) => {
+    const { id, name } = req.query;
 
+    if (!id || !name) {
+        return res.status(400).json({ errore: 'ID e nome sono obbligatori!' });
+    }
+
+    const sqlSelect = 'SELECT gender, nationality, birthdate, height FROM gta_loginUsers WHERE id = ? AND nome = ?';
+
+    db.query(sqlSelect, [id, name], (err, results) => {
+        if (err) {
+            console.error("Errore durante il recupero dei dati:", err);
+            return res.status(500).json({ errore: 'Errore del server durante il recupero' });
+        }
+
+        if (results.length === 0) {
+            return res.status(404).json({ errore: 'Utente non trovato' });
+        }
+
+        res.status(200).json(results[0]);
+    });
+});
 
 // Fai partire il server
 app.listen(port, () => {

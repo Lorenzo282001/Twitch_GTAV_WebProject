@@ -1,9 +1,13 @@
 document.addEventListener('DOMContentLoaded', function() {
 
     $("#spanUsername").html(localStorage.getItem("user").toUpperCase());
-
-    $("#roleID").html("["+ localStorage.getItem("role").toUpperCase() + "]");
     
+    const role = localStorage.getItem("role");
+
+    if (role == "citizen") {
+        $("#roleID").html("🧍‍♂️");
+    }
+
     if (localStorage.getItem("is_admin") == 1) {
         $("#is_adminID").css("display", "block");
 
@@ -16,6 +20,32 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     
     }
+
+    // Receupero settaggi utente se sono diversi da null
+    fetch(`http://localhost:3000/get-settings?id=${localStorage.getItem("id")}&name=${localStorage.getItem("user")}`)
+    .then(response => {
+        if (!response.ok) {
+        throw new Error('Errore nel recupero delle impostazioni');
+        }
+        return response.json();
+    })
+    .then(data => {
+         // Imposta valori di default se il campo è null o undefined
+        const gender = data.gender ?? 'male'; // Default: Maschio
+        const nationality = data.nationality ?? 'it'; // Default: Italia
+        const birthdate = data.birthdate ?? '2000-01-01'; // Default: data generica
+        const height = data.height ?? 170; // Default: 170 cm
+
+        // Imposta i valori nei campi con jQuery
+        $('#gender').val(gender);
+        $('#nationality').val(nationality);
+        $('#birthdate').val(birthdate);
+        $('#height').val(height);
+
+    })
+    .catch(error => {
+        console.error('Errore nel fetch:', error);
+    });
 
 });
 
@@ -34,11 +64,26 @@ function closeMenu(event) {
     }
 }
 
+/* DASHBOARD CITTADINO*/
+
+function toggleDashboard() {
+
+    if ($('.dashboard').is(':visible')) {
+        $(".dashboard").fadeOut(500);
+    } else {
+        $(".dashboard").hide().fadeIn(500);
+        document.getElementById('mainSettings').style.display = 'none';
+    }
+}
+
 /* IMPOSTAZIONI */
  
 
 function openSettings() {
-    document.getElementById('mainSettings').style.display = 'flex';
+    $(".dashboard").fadeOut(500);
+
+    $("#mainSettings").fadeIn(500);
+
 }
 
  // Funzione per chiudere il menu delle impostazioni
