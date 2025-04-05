@@ -159,6 +159,15 @@
                 </div>
                 <h2>Dettagli Documenti</h2>
                 <p>Qui visualizzerai tutti i dettagli relativi ai tuoi documenti.</p>
+
+                <div class="document-list" style="margin-top: 20px;">
+                    <ul style="display: flex; flex-direction: column; margin-bottom: 20px; list-style: none;align-items: center;letter-spacing: 3px;">
+                        <li>🆔: <span id="carta-identita"></span></li>
+                        <li>🅰️: <span id="patente-a"></span></li>
+                        <li>🅱️: <span id="patente-b"></span></li>
+                        <li>🅾️: <span id="patente-c"></span></li>
+                    </ul>
+                </div>
             </div>
 
             <!-- Card per le specifiche di Aggiungi Documento -->
@@ -172,7 +181,6 @@
                 <div class="document-type">
                     <label for="document-select">Seleziona il tipo di documento:</label>
                     <select id="document-select" class="select-menu">
-                        <option value="carta-identita">Carta d'Identità</option>
                         <option value="patente-a">Patente A</option>
                         <option value="patente-b">Patente B</option>
                         <option value="patente-c">Patente C</option>
@@ -180,7 +188,7 @@
                 </div>
 
                 <div class="dashboard-upload" style="display: flex; justify-content: center; align-items: center;margin-top: 30px;">
-                    <button style="cursor: pointer;">ADD</button>
+                    <button id="add_documentButton" style="cursor: pointer;">ADD</button>
                 </div>
             </div>
             
@@ -194,8 +202,7 @@
                 
                 <div class="document-type">
                     <label for="document-select">Seleziona il tipo di documento:</label>
-                    <select id="document-select" class="select-menu">
-                        <option value="carta-identita">Carta d'Identità</option>
+                    <select id="documentRemove-select" class="select-menu">
                         <option value="patente-a">Patente A</option>
                         <option value="patente-b">Patente B</option>
                         <option value="patente-c">Patente C</option>
@@ -203,7 +210,7 @@
                 </div>
 
                 <div class="dashboard-upload" style="display: flex; justify-content: center; align-items: center;margin-top: 30px;">
-                    <button style="cursor: pointer;">REMOVE</button>
+                    <button id="remove_documentButton" style="cursor: pointer;">REMOVE</button>
                 </div>
             </div>
 

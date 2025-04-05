@@ -2,6 +2,15 @@
 const express = require('express');
 const cors = require('cors');
 const mysql = require('mysql2');
+const crypto = require('crypto');
+
+
+// Funzione per generare un codice alfanumerico casuale (es. 10 caratteri)
+function generaCartaIdentita() {
+    return crypto.randomBytes(5).toString('hex').toUpperCase(); // 10 caratteri esadecimali
+}
+
+
 
 // Crea una nuova app express
 const app = express();
@@ -44,8 +53,28 @@ app.post('/registrazione', (req, res) => {
             console.error("Errore durante l'inserimento dell'utente:", err);
             return res.status(500).json({ errore: 'Errore del server' });
         }
-        console.log(`Nuovo utente inserito con ID: ${result.insertId}`);
-        res.status(201).json({ messaggio: 'Utente creato con successo', id: result.insertId });
+
+        const userId = result.insertId;
+        const cartaIdentita = generaCartaIdentita();
+
+        const query = `
+            INSERT INTO gta_documents (id, carta_identita)
+            VALUES (?, ?)
+        `;
+
+        db.query(query, [userId, cartaIdentita], (err2, results) => {
+            if (err2) {
+                console.error("Errore durante l'inserimento della carta:", err2);
+                return res.status(500).json({ errore: 'Errore durante la creazione della carta di identità' });
+            }
+
+            console.log(`Utente ${nome} registrato con carta ${cartaIdentita}`);
+            return res.status(201).json({
+                messaggio: 'Utente creato con successo',
+                id: userId,
+                carta_identita: cartaIdentita
+            });
+        });
     });
 });
 
@@ -134,6 +163,150 @@ app.get('/get-settings', (req, res) => {
         res.status(200).json(results[0]);
     });
 });
+
+app.post('/add_documets/:id', (req, res) => {
+    const userId = req.params.id; // ID dell'utente
+    const { patente_A, patente_B, patente_C } = req.body;
+
+    // 1. Verifica se l'utente ha già un record nella tabella gta_documents
+    const checkUserQuery = 'SELECT * FROM gta_documents WHERE id = ?';
+    db.query(checkUserQuery, [userId], (err, results) => {
+        if (err) {
+            console.error("Errore durante il controllo dei documenti:", err);
+            return res.status(500).json({ errore: 'Errore nel controllo dei documenti' });
+        }
+
+        // Se il record esiste già, fai un UPDATE
+        if (results.length > 0) {
+            const updateQuery = `
+                UPDATE gta_documents
+                SET patente_A = ?, patente_B = ?, patente_C = ?
+                WHERE id = ?
+            `;
+            const updateValues = [
+                patente_A ?? null, // Imposta su null se non fornito
+                patente_B ?? null,
+                patente_C ?? null,
+                userId // ID dell'utente
+            ];
+
+            db.query(updateQuery, updateValues, (err, results) => {
+                if (err) {
+                    console.error("Errore durante l'aggiornamento dei documenti:", err);
+                    return res.status(500).json({ errore: 'Errore durante l\'aggiornamento dei documenti' });
+                }
+
+                return res.status(200).json({
+                    messaggio: 'Documenti aggiornati con successo',
+                });
+            });
+        } else {
+            // Se il record non esiste, fai un INSERT
+            const insertQuery = `
+                INSERT INTO gta_documents (id, patente_A, patente_B, patente_C)
+                VALUES (?, ?, ?, ?)
+            `;
+            const insertValues = [
+                userId, // ID dell'utente
+                patente_A ?? null, // Imposta su null se non fornito
+                patente_B ?? null,
+                patente_C ?? null
+            ];
+
+            db.query(insertQuery, insertValues, (err, results) => {
+                if (err) {
+                    console.error("Errore durante l'inserimento dei documenti:", err);
+                    return res.status(500).json({ errore: 'Errore durante l\'inserimento dei documenti' });
+                }
+
+                return res.status(201).json({
+                    messaggio: 'Documenti inseriti con successo',
+                });
+            });
+        }
+    });
+});
+
+app.post('/elimina_patente/:id', (req, res) => {
+    const userId = req.params.id;  // Ottieni l'ID dell'utente dalla route
+    const { patente_A, patente_B, patente_C } = req.body;  // Ottieni i valori delle patenti dal corpo della richiesta
+
+    // Query SQL per aggiornare le patenti
+    const query = `
+        UPDATE gta_documents
+        SET 
+            patente_A = ?, 
+            patente_B = ?, 
+            patente_C = ?
+        WHERE id = ?;
+    `;
+
+    // Valori da passare alla query
+    const values = [patente_A, patente_B, patente_C, userId];
+
+    // Esegui la query
+    db.query(query, values, (err, results) => {
+        if (err) {
+            console.error("Errore durante l'aggiornamento:", err);
+            return res.status(500).json({ errore: 'Errore durante l\'eliminazione della patente' });
+        }
+
+        return res.status(200).json({
+            success: true,
+            messaggio: 'Patente eliminata con successo'
+        });
+    });
+});
+
+
+// Route GET per ottenere i dati della carta d'identità
+// Recupera la carta di identità per un determinato utente
+app.get('/carta-identita/:id', (req, res) => {
+    const userId = req.params.id;
+
+    const query = 'SELECT carta_identita FROM gta_documents WHERE id = ?';
+    db.query(query, [userId], (err, results) => {
+        if (err) {
+            console.error("Errore durante il recupero della carta di identità:", err);
+            return res.status(500).json({ errore: 'Errore nel recupero della carta di identità' });
+        }
+
+        if (results.length === 0) {
+            return res.status(404).json({ errore: 'Carta di identità non trovata per questo utente' });
+        }
+
+        return res.status(200).json({
+            messaggio: 'Carta di identità recuperata con successo',
+            carta_identita: results[0].carta_identita
+        });
+    });
+});
+
+// Route GET per ottenere i dati della patente
+// Recupera la carta di identità per un determinato utente
+app.get('/patente/:id', (req, res) => {
+    const userId = req.params.id;
+
+    const query = 'SELECT patente_A,patente_B,patente_C FROM gta_documents WHERE id = ?';
+    db.query(query, [userId], (err, results) => {
+        if (err) {
+            console.error("Errore durante il recupero della carta di identità:", err);
+            return res.status(500).json({ errore: 'Errore nel recupero della carta di identità' });
+        }
+
+        if (results.length === 0) {
+            return res.status(404).json({ errore: 'Carta di identità non trovata per questo utente' });
+        }
+
+        return res.status(200).json({
+            messaggio: 'Patenete recuperata con successo',
+            patente_A: results[0].patente_A,
+            patente_B: results[0].patente_B, 
+            patente_C: results[0].patente_C
+        });
+    });
+});
+
 
 // Fai partire il server
 app.listen(port, () => {

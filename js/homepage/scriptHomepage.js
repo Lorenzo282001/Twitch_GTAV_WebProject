@@ -1,5 +1,7 @@
 document.addEventListener('DOMContentLoaded', function() {
 
+    console.log("ID USER:" + localStorage.getItem("id"));
+ 
     $("#spanUsername").html(localStorage.getItem("user").toUpperCase());
     
     const role = localStorage.getItem("role");
